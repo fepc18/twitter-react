@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
-import { Alert, Button } from 'react-bootstrap';
+
+import SingInSingUp from './page/SignInSignUp/SingInSingUp';
 
 export default function App() {
-  const { user, setUser } = useState(null);
+
+  const [user, setUser] = useState("Felipe");
+
 
   //return login page if user is not logged in
 
-  //return <div>{user? <h1>Estas logeado</h1> : <h1>No estas logeado</h1>   }</div>;
+  return <div>{user? (<SingInSingUp/>) : <h1>No estas logeado  </h1> }</div>;
 
-  return (
-    <div>
-      <Button variant="primary">Primary</Button>
-      <Alert variant="danger">
-          This is a alert—check it out!
-        </Alert>
-       </div>
-  );
+ 
 
 }
 
