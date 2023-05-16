@@ -2,7 +2,13 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Spinner, Form, Button } from "react-bootstrap";
 
+import { values, size } from "lodash";
+import { toast } from 'react-toastify';
+
+import { isEmailValid } from "../../utils/validations";
+
 import "./SignUpForm.scss";
+
 //Sign Up Form
 export default function SignUpForm(props) {
     const { setShowModal } = props;
@@ -11,9 +17,29 @@ export default function SignUpForm(props) {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log("Formulario enviado");
-        setShowModal(false);
-        console.log(formData);
+        let validCount = 0;
+        values(formData).some(value => {
+            value && validCount++;
+            return null;
+        });
+        if (validCount !== size(formData)) {
+            toast.warning("Completa todos los campos del formulario");
+        }
+        if (!isEmailValid(formData.email)) {
+            toast.warning("Email invalido");
+            return null;
+        }
+        if (formData.password !== formData.repeatPassword) {
+            toast.warning("Las contraseñas tienen que ser iguales");
+            return null;
+        }
+        if (size(formData.password) < 6) {
+            toast.warning("La contraseña tiene que tener al menos 6 caracteres");
+            return null;
+        }
+
+        toast.success("Formulario correcto");
+
     }
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -30,7 +56,7 @@ export default function SignUpForm(props) {
                                 type="text"
                                 placeholder="Nombre"
                                 defaultValue={formData.name}
-                                name='name'                              
+                                name='name'
                             />
                         </Col>
                         <Col>
@@ -46,8 +72,8 @@ export default function SignUpForm(props) {
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control 
-                                type="email" 
+                            <Form.Control
+                                type="email"
                                 placeholder="Correo electronico"
                                 defaultValue={formData.email}
                                 name="email"
@@ -60,18 +86,18 @@ export default function SignUpForm(props) {
                     <Row>
                         <Col>
 
-                            <Form.Control 
-                                type="password" 
-                                placeholder="Contraseña" 
+                            <Form.Control
+                                type="password"
+                                placeholder="Contraseña"
                                 defaultValue={formData.password}
                                 name="password"
                             />
                         </Col>
                         <Col>
-                            <Form.Control 
-                                type="password" 
-                                placeholder="Repetir contraseña" 
-                                defaultValue={formData.repeatPassword} 
+                            <Form.Control
+                                type="password"
+                                placeholder="Repetir contraseña"
+                                defaultValue={formData.repeatPassword}
                                 name="repeatPassword"
                             />
                         </Col>
