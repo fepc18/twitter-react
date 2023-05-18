@@ -6,6 +6,7 @@ import { faSearch, faUsers, faComment } from "@fortawesome/free-solid-svg-icons"
 
 import BasicModal from "../../components/Modal/BasicModal";
 import SignUpForm from "../../components/SignUpForm";
+import SignInForm from "../../components/SignInForm";
 
 import "./SingInSingUp.scss";
 import { useState } from "react";
@@ -79,7 +80,7 @@ function RightComponent(props) {
                 </Button>
                 <Button
                     variant="outline-primary"
-                    onClick={() => openModal(<h2>Formulario de Login</h2>)}
+                    onClick={() => openModal(<SignInForm/>)}
                 >
                     Iniciar sesión
                 </Button>
