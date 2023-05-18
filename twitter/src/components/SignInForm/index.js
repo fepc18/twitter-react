@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Spinner, Form, Button } from "react-bootstrap";
 import "./SignInForm.scss";
 
 export default function SignInForm(props) {
+    const [formData, setFormData] = useState(initialFormValue());
+
 
     const onSubmit = e => {
         e.preventDefault();
         console.log("Formulario enviado");
     }
+
+    const onChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+
     return (
         <div className='sign-in-form'>
             <h2>Entrar</h2>
@@ -19,6 +27,8 @@ export default function SignInForm(props) {
                                 type="email"
                                 placeholder="Correo electronico"
                                 name="email"
+                                defaultValue={formData.email}
+                                onChange={onChange}
                             />
                         </Col>
                     </Row>
@@ -30,6 +40,8 @@ export default function SignInForm(props) {
                                 type="password"
                                 placeholder="Contraseña"
                                 name="password"
+                                onChange={onChange}
+                                defaultValue={formData.password}
                             />
                         </Col>
                     </Row>
@@ -46,4 +58,12 @@ export default function SignInForm(props) {
     )
 
 
+}
+
+
+function initialFormValue() {
+    return {
+        email: "",
+        password: ""
+    }
 }
