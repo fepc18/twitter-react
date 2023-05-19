@@ -27,7 +27,7 @@ export default function App() {
   //return login page if user is not logged in
 
   return <AuthContext.Provider value={user}>
-    {user ? <Routing/> : (<SingInSingUp setRefreshCheckLogin={setRefreshCheckLogin} />)}
+    {user ? <Routing setRefreshCheckLogin={setRefreshCheckLogin}  /> : (<SingInSingUp setRefreshCheckLogin={setRefreshCheckLogin} />)}
     <ToastContainer
       position="top-right"
       autoClose={5000}
