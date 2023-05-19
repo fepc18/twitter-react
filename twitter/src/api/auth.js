@@ -1,4 +1,4 @@
-import { API_HOST } from "../utils/constants";
+import { API_HOST,TOKEN } from "../utils/constants";
 export function signUpApi(user) {
     const url = `${API_HOST}/register`;
 
@@ -49,4 +49,8 @@ export function signInApi(user) {
     }).catch(err => {
         return err;
     })
+}
+
+export function setTokenApi(token) {
+    localStorage.setItem(TOKEN, token); //must use session storage
 }

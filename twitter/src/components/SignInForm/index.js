@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Spinner, Form, Button } from "react-bootstrap";
+import { Row, Col, Spinner, Form, Button } from "react-bootstrap";
 import { values, size } from "lodash";
 import { toast } from 'react-toastify';
 import { isEmailValid } from "../../utils/validations";
 
 
-import { signInApi } from '../../api/auth';
+import { setTokenApi, signInApi } from '../../api/auth';
 
 import "./SignInForm.scss";
 
@@ -43,6 +43,7 @@ export default function SignInForm(props) {
             if (response.message) {
                 toast.warning(response.message);
             } else {
+                setTokenApi(response.token);
                 console.log(response);
             }
         }
@@ -51,8 +52,8 @@ export default function SignInForm(props) {
         }).finally(() => {
             setSignInLoading(false);
         }
-        )       
-       
+        )
+
 
     }
 
