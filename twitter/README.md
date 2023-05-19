@@ -24,3 +24,5 @@
     manejar estados
     validar campos obligatorios
     configurar loading
+    crear funciones para consumir apis
+    llamar la funcion desde el submit
