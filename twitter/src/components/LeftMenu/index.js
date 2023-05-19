@@ -8,10 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faUsers, faHashtag, faStar, faUser, faCog, faPowerOff } from '@fortawesome/free-solid-svg-icons'
 
 import { logoutApi } from '../../api/auth'
+import useAuth from '../../hooks/useAuth'
 
 export default function LeftMenu(props) {
-
     const { setRefreshCheckLogin } = props;
+    const user = useAuth();
+
     const logout = () => {
         logoutApi()
         setRefreshCheckLogin(true);
@@ -23,7 +25,7 @@ export default function LeftMenu(props) {
         <div className="left-menu">
             <img className="logo" src={LogoWhite} alt="Twitter" />
             <Link to="/"><FontAwesomeIcon icon={faHome} />Inicio</Link>
-            <Link to="/users"><FontAwesomeIcon icon={faUsers} />Usuarios</Link>
+            <Link to={`${user?._id}`}><FontAwesomeIcon icon={faUsers} />Usuarios</Link>
             <Link to="/hashtags"><FontAwesomeIcon icon={faHashtag} />Hashtags</Link>
             <Link to="/favorites"><FontAwesomeIcon icon={faStar} />Favoritos</Link>
             <Link to="/profile"><FontAwesomeIcon icon={faUser} />Perfil</Link>
