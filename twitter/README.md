@@ -15,6 +15,8 @@
 4. lodash
     yarn add lodash
 
+5. yarn add jwt-decode
+
 
 
 
@@ -26,3 +28,7 @@
     configurar loading
     crear funciones para consumir apis
     llamar la funcion desde el submit
+    crear funcion para guardar token
+    guardar el token
+
+    crear context
