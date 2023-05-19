@@ -17,8 +17,8 @@
 
 5. yarn add jwt-decode
 
-
-
+6. https://reactrouter.com/en/main
+yarn add react-router-dom
 
     ///formularios
 
@@ -30,5 +30,5 @@
     llamar la funcion desde el submit
     crear funcion para guardar token
     guardar el token
-
     crear context
+    pasar la funciona que cambia la pagina inicial hasta el componente que genera el evento de cambio.

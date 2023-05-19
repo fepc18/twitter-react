@@ -1,6 +1,5 @@
 import { Row, Container, Col, Button } from "react-bootstrap";
 import LogoWhiteTwitter from "../../assets/png/logo-white.png";
-import LogoTwitter from "../../assets/png/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faUsers, faComment } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,7 +12,9 @@ import { useState } from "react";
 
 
 
-export default function SingInSingUp() {
+export default function SingInSingUp(props) {
+
+    const { setRefreshCheckLogin } = props;
 
     const [showModal, setShowModal] = useState(false);
     const [contentModal, setContentModal] = useState(null);
@@ -31,6 +32,7 @@ export default function SingInSingUp() {
                     <RightComponent
                         openModal={openModal}
                         setShowModal={setShowModal}
+                        setRefreshCheckLogin={setRefreshCheckLogin}
                     />
                 </Row>
             </Container>
@@ -64,7 +66,7 @@ function LeftComponent() {
     );
 }
 function RightComponent(props) {
-    const { openModal, setShowModal } = props;
+    const { openModal, setShowModal,setRefreshCheckLogin } = props;
     return (
         <Col className="signin-signup__right col-lg-6" xs={6}>
             <div>
@@ -80,7 +82,7 @@ function RightComponent(props) {
                 </Button>
                 <Button
                     variant="outline-primary"
-                    onClick={() => openModal(<SignInForm/>)}
+                    onClick={() => openModal(<SignInForm setRefreshCheckLogin={setRefreshCheckLogin} />)}
                 >
                     Iniciar sesión
                 </Button>

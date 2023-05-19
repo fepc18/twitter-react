@@ -11,6 +11,8 @@ import "./SignInForm.scss";
 
 
 export default function SignInForm(props) {
+    const { setRefreshCheckLogin } = props;
+
     const [formData, setFormData] = useState(initialFormValue());
     const [signInLoading, setSignInLoading] = useState(false);
 
@@ -44,7 +46,7 @@ export default function SignInForm(props) {
                 toast.warning(response.message);
             } else {
                 setTokenApi(response.token);
-                console.log(response);
+                setRefreshCheckLogin(true);
             }
         }
         ).catch(() => {

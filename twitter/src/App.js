@@ -6,20 +6,28 @@ import { AuthContext } from './utils/contexts';
 
 import {isUserLoggedApi} from './api/auth';
 
+import Routing from './routes/Routing';
+
 export default function App() {
 
   const [user, setUser] = useState(null);
+  const [loadUser, setLoadUser] = useState(false);
+  const [refreshCheckLogin, setRefreshCheckLogin] = useState(false);
 
   useEffect(() => {
     setUser(isUserLoggedApi());
+    setRefreshCheckLogin(false);
+    setLoadUser(true);
   }
-  , []);
+  , [refreshCheckLogin]);
+
+  if(!loadUser) return null;
 
 
   //return login page if user is not logged in
 
   return <AuthContext.Provider value={user}>
-    {user ? <h1>Estas logeado  </h1> : (<SingInSingUp />)}
+    {user ? <Routing/> : (<SingInSingUp setRefreshCheckLogin={setRefreshCheckLogin} />)}
     <ToastContainer
       position="top-right"
       autoClose={5000}
