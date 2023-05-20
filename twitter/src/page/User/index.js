@@ -30,7 +30,7 @@ export default function User(props) {
   return (
     <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin} >
       <div className="user__title">
-        <h2></h2>
+        <h2>{user?.name} {user?.lastName}</h2>
       </div>
       <div className="user__container">
         <div className="user__container__info">
