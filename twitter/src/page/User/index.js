@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import BasicLayout from '../../layout/BasicLayout'
 import './User.scss'
 import { getUserApi } from '../../api/user';
+import BannerAvatar from '../../components/User/BannerAvatar';
 
 
 export default function User(props) {
@@ -30,8 +31,10 @@ export default function User(props) {
   return (
     <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin} >
       <div className="user__title">
-        <h2>{user?.name} {user?.lastName}</h2>
+        <h2> {user?`Usuario: ${user?.name} ${user?.lastName}` : "El usuario no existe"}
+           </h2>
       </div>
+      <BannerAvatar user={user} />
       <div className="user__container">
         <div className="user__container__info">
           <h3>Datos de usuario</h3>
