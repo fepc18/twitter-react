@@ -20,7 +20,11 @@
 6. https://reactrouter.com/en/main
 yarn add react-router-dom
 
-7. yarn add moment
+7.  Format dates
+    yarn add moment
+
+8. Calendar control
+    yarn add react-datepicker
 
     ///formularios
 

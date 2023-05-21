@@ -1,7 +1,11 @@
 import './EditUserForm.scss';
 import React from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import { es } from 'date-fns/locale';
+
 import { updateProfileApi } from '../../../api/user';
+
 
 export default function EditUserForm(props) {
 
@@ -35,8 +39,33 @@ export default function EditUserForm(props) {
                     </Row>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Control type="text" placeholder="Sitio Web" defaultValue={user.website} />
+                    <Row>
+                        <Col>
+                            <Form.Control type="text" placeholder="Sitio Web" defaultValue={user.website} />
+                        </Col>
+                    </Row>
                 </Form.Group>
+                <Form.Group>
+                    <Row>
+                        <Col>
+                            <DatePicker
+                                placeholder="Fecha de nacimiento"
+                                locale={es}
+                                selected={new Date(user.birthdate)}
+                                onChange={date => console.log(date)}
+                            />
+                        </Col>
+                    </Row>
+
+                </Form.Group>
+                <Form.Group>
+                    <Row>
+                        <Col>
+                            <Form.Control type="text" placeholder="Ubicación" defaultValue={user.location} />
+                        </Col>
+                    </Row>
+                </Form.Group>
+
                 <Form.Group>
                     <Row>
                         <Col>
