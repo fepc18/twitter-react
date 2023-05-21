@@ -20,6 +20,8 @@
 6. https://reactrouter.com/en/main
 yarn add react-router-dom
 
+7. yarn add moment
+
     ///formularios
 
     crear formulario con estilos

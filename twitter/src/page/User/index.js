@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Spinner } from 'bootstrap'
 import { useParams } from 'react-router-dom';
-
+import useAuth from '../../hooks/useAuth';
 import BasicLayout from '../../layout/BasicLayout'
 import './User.scss'
 import { getUserApi } from '../../api/user';
 import BannerAvatar from '../../components/User/BannerAvatar';
+import { toast } from 'react-toastify';
+import InfoUser from '../../components/User/InfoUser';
 
 
 export default function User(props) {
   const { setRefreshCheckLogin } = props
-  const { id } = useParams();
-  const [ user, setUser ] = useState(null);
-
+  const { id } = useParams(); //user id from url
+  const [user, setUser] = useState(null);
+  const loggedUser = useAuth(); //user logged
 
   useEffect(() => {
     getUserApi(id).then(response => {
+      if (!response)
+        toast.error("El usuario que has visitado no existe");
       setUser(response);
     }).catch(() => {
+      toast.error("El usuario que has visitado no existe");
       setUser({});
     }).finally(() => {
 
-    }) 
+    })
   }, [id])
 
 
@@ -31,24 +36,13 @@ export default function User(props) {
   return (
     <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin} >
       <div className="user__title">
-        <h2> {user?`Usuario: ${user?.name} ${user?.lastName}` : "El usuario no existe"}
-           </h2>
+        <h2> {user ? ` ${user?.name} ${user?.lastName}` : "El usuario no existe"}
+        </h2>
       </div>
-      <BannerAvatar user={user} />
+      <BannerAvatar user={user} loggedUser={loggedUser} />
       <div className="user__container">
         <div className="user__container__info">
-          <h3>Datos de usuario</h3>
-          <div className="user__container__info__item">
-            <p>Nombre: {user?.name}</p>
-            <p>Apellido: {user?.lastName}</p>
-          </div>
-          <div className="user__container__info__item">
-            <p>Email: {user?.email}</p>
-          </div>
-          <div className="user__container__info__item">
-            <p>Fecha de nacimiento:</p>
-            <p>DD/MM/YYYY</p>
-          </div>
+          <InfoUser user={user} />
         </div>
       </div>
     </BasicLayout>
