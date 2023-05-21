@@ -26,3 +26,26 @@ export function getUserApi(id) {
             return err;
         });
 }
+
+export function updateProfileApi(data) {
+    const url = `${API_HOST}/modifyprofile`;
+
+    const params = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getTokenApi()}`,
+        },
+        body: JSON.stringify(data),
+    };
+
+    return fetch(url, params)
+        .then((response) => {
+
+            return response;
+        })
+        .catch((err) => {
+
+            return err;
+        });
+}
