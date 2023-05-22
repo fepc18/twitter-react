@@ -1,6 +1,6 @@
 import './EditUserForm.scss';
 import React, { useState } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col,Spinner } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import { es } from 'date-fns/locale';
 import { useDropzone } from 'react-dropzone';
@@ -25,6 +25,7 @@ export default function EditUserForm(props) {
     const [bannerFile, setBannerFile] = useState(null);
     const [avatarFile, setAvatarFile] = useState(null);
 
+    const [loading, setLoading] = useState(false);
     const onDropBanner = (acceptedFile) => {
         const file = acceptedFile[0];
         setBannerUrl(URL.createObjectURL(file));
@@ -50,34 +51,30 @@ export default function EditUserForm(props) {
 
     }
 
-    const onSubmit = e => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         if (bannerFile) {
-            uploadBannerApi(bannerFile).catch(() => {
+            await uploadBannerApi(bannerFile).catch(() => {
                 toast.error("Error al subir el nuevo banner");
             });
 
         }
         if (avatarFile) {
-            uploadAvatarApi(avatarFile).catch(() => {
+            await uploadAvatarApi(avatarFile).catch(() => {
                 toast.error("Error al subir el nuevo avatar");
             });
         }
 
-        updateProfileApi(formData).then(response => {
+        await updateProfileApi(formData).then(response => {
             console.log(response);
             toast.success("Perfil actualizado");
             setShowModal(false);
         }).catch(() => {
             toast.error("Error al actualizar el perfil");
-        }).finally
-            (() => {
-                window.location.reload();
-            }
-            );
-
-
+        });
+        setLoading(false);
+        window.location.reload();
     }
 
     return (
@@ -142,6 +139,7 @@ export default function EditUserForm(props) {
                     <Row>
                         <Col>
                             <Button variant="primary" type="submit" className="btn-submit">
+                                {loading && <Spinner animation="border" size="sm" />}                                
                                 Actualizar
                             </Button>
                         </Col>
