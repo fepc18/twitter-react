@@ -25,6 +25,7 @@ yarn add react-router-dom
 
 8. Calendar control
     yarn add react-datepicker
+9. yarn add react-dropzone
 
     ///formularios
 
@@ -38,3 +39,4 @@ yarn add react-router-dom
     guardar el token
     crear context
     pasar la funciona que cambia la pagina inicial hasta el componente que genera el evento de cambio.
+    --- Cuando hay calendatios se debe asignar onchange por control

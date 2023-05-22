@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import { es } from 'date-fns/locale';
+import { useDropzone } from 'react-dropzone';
+import { toast } from 'react-toastify';
 
+import { API_HOST } from '../../../utils/constants';
 import { updateProfileApi } from '../../../api/user';
 
 
@@ -11,6 +14,32 @@ export default function EditUserForm(props) {
 
     const { user, setShowModal } = props;
     const [formData, setFormData] = useState(initialValueForm(user));
+    const [bannerUrl, setBannerUrl] = useState(
+        user?.banner ? `${API_HOST}/getbanner?id=${user.id}` : null
+    );
+    const [avatarUrl, setAvatarUrl] = useState(
+        user?.avatar ? `${API_HOST}/getavatar?id=${user.id}` : null
+    );
+    const [bannerFile, setBannerFile] = useState(null);
+    const [avatarFile, setAvatarFile] = useState(null);
+    
+    const onDropBanner = (acceptedFile) => {
+        const file = acceptedFile[0];
+        setBannerUrl(URL.createObjectURL(file));
+        setBannerFile(file);
+    }   
+    const {getRootProps: getRootBannerProps,getInputProps:getInputBannerProps }=useDropzone({ //alias
+        accept: "image/jpeg, image/png",
+        noKeyboard: true,
+        onDrop: onDropBanner
+    }) 
+    const onDropAvatar = (acceptedFile) => {
+        const file = acceptedFile[0];
+        setAvatarUrl(URL.createObjectURL(file));
+        setAvatarFile(file);
+    }
+
+
 
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -18,18 +47,21 @@ export default function EditUserForm(props) {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log(formData);
-
-
+        console.log(formData)
     }
 
     return (
         <div className='edit-user-form'>
+            <div className='banner' style={{ backgroundImage: `url('${bannerUrl}')` }} {...getRootBannerProps()}>
+                <input {...getInputBannerProps()} />
+                <p>Subir foto</p>
+            </div>
+            
             <Form onSubmit={onSubmit} >
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control type="text" placeholder="Nombre" defaultValue={formData.name} onChange={onChange}/>
+                            <Form.Control type="text" placeholder="Nombre" defaultValue={formData.name} onChange={onChange} />
                         </Col>
                         <Col>
                             <Form.Control type="text" placeholder="Apellidos" defaultValue={formData.lastName} onChange={onChange} />
@@ -39,14 +71,14 @@ export default function EditUserForm(props) {
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control as="textarea" row="3" placeholder="Agrega tu biografía" defaultValue={formData.biography} onChange={onChange}/>
+                            <Form.Control as="textarea" row="3" placeholder="Agrega tu biografía" defaultValue={formData.biography} onChange={onChange} />
                         </Col>
                     </Row>
                 </Form.Group>
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control type="text" placeholder="Sitio Web" defaultValue={formData.website} onChange={onChange}/>
+                            <Form.Control type="text" placeholder="Sitio Web" defaultValue={formData.website} onChange={onChange} />
                         </Col>
                     </Row>
                 </Form.Group>
@@ -58,7 +90,7 @@ export default function EditUserForm(props) {
                                 locale={es}
                                 selected={new Date(formData.birthdate)}
                                 onChange={value => setFormData({ ...formData, birthdate: value })}
-                                
+
                             />
                         </Col>
                     </Row>
@@ -79,7 +111,7 @@ export default function EditUserForm(props) {
                                 Actualizar
                             </Button>
                         </Col>
-                        
+
                     </Row>
                 </Form.Group>
             </Form>
