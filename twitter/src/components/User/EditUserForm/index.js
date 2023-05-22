@@ -39,9 +39,11 @@ export default function EditUserForm(props) {
         setAvatarUrl(URL.createObjectURL(file));
         setAvatarFile(file);
     }
-
-
-
+    const {getRootProps: getRootAvatarProps,getInputProps:getInputAvatarProps }=useDropzone({ //alias
+        accept: "image/jpeg, image/png",
+        noKeyboard: true,
+        onDrop: onDropAvatar
+    }) 
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
@@ -58,7 +60,10 @@ export default function EditUserForm(props) {
                 <input {...getInputBannerProps()} />
                 <Camera/>
             </div>
-
+            <div className='avatar' style={{ backgroundImage: `url('${avatarUrl}')` }} {...getRootAvatarProps()}>
+                <input {...getInputAvatarProps()} />
+                <Camera/>
+            </div>
             <Form onSubmit={onSubmit} >
                 <Form.Group>
                     <Row>
