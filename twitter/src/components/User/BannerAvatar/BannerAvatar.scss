@@ -37,6 +37,19 @@
                 background-color: $primary;
                 opacity: 0.6;
             }
+            &.unfollow{
+                &:hover{
+                    border-color:$danger !important;
+                    background-color: $danger  !important;
+                    &::before{
+                        content: "Dejar de seguir";
+                    }
+                    span{
+                        display: none;
+                    }
+                } 
+                
+            }
         }
     }
 }
