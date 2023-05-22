@@ -49,3 +49,60 @@ export function updateProfileApi(data) {
             return err;
         });
 }
+export function uploadBannerApi(file) {
+    const url = `${API_HOST}/uploadbanner`;
+
+    const formData = new FormData();
+    formData.append("banner", file);
+
+    const params = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${getTokenApi()}`,
+        },
+        body: formData,
+    };
+
+    return fetch(url, params)
+        .then((response) => {
+
+            return response.json();
+        })
+        .then((result) => {
+
+            return result;
+        })
+        .catch((err) => {
+
+            return err;
+        });
+}
+
+export function uploadAvatarApi(file) {
+    const url = `${API_HOST}/uploadavatar`;
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    const params = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${getTokenApi()}`,
+        },
+        body: formData,
+    };
+
+    return fetch(url, params)
+        .then((response) => {
+
+            return response.json();
+        })
+        .then((result) => {
+
+            return result;
+        })
+        .catch((err) => {
+
+            return err;
+        });
+}

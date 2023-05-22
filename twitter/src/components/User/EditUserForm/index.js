@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 
 import { API_HOST } from '../../../utils/constants';
 import { Camera } from '../../../utils/Icons';
-import { updateProfileApi } from '../../../api/user';
+import { updateProfileApi, uploadBannerApi, uploadAvatarApi } from '../../../api/user';
+
 
 
 export default function EditUserForm(props) {
@@ -23,27 +24,27 @@ export default function EditUserForm(props) {
     );
     const [bannerFile, setBannerFile] = useState(null);
     const [avatarFile, setAvatarFile] = useState(null);
-    
+
     const onDropBanner = (acceptedFile) => {
         const file = acceptedFile[0];
         setBannerUrl(URL.createObjectURL(file));
         setBannerFile(file);
-    }   
-    const {getRootProps: getRootBannerProps,getInputProps:getInputBannerProps }=useDropzone({ //alias
+    }
+    const { getRootProps: getRootBannerProps, getInputProps: getInputBannerProps } = useDropzone({ //alias
         accept: "image/jpeg, image/png",
         noKeyboard: true,
         onDrop: onDropBanner
-    }) 
+    })
     const onDropAvatar = (acceptedFile) => {
         const file = acceptedFile[0];
         setAvatarUrl(URL.createObjectURL(file));
         setAvatarFile(file);
     }
-    const {getRootProps: getRootAvatarProps,getInputProps:getInputAvatarProps }=useDropzone({ //alias
+    const { getRootProps: getRootAvatarProps, getInputProps: getInputAvatarProps } = useDropzone({ //alias
         accept: "image/jpeg, image/png",
         noKeyboard: true,
         onDrop: onDropAvatar
-    }) 
+    })
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
@@ -52,17 +53,39 @@ export default function EditUserForm(props) {
         e.preventDefault();
         console.log(formData);
         console.log(bannerFile);
+        console.log(avatarFile);
+        if (bannerFile) {
+            uploadBannerApi(bannerFile).catch(() => {
+                toast.error("Error al subir el nuevo banner");
+            });
+
+        }
+        if (avatarFile) {
+            uploadAvatarApi(avatarFile).catch(() => {
+                toast.error("Error al subir el nuevo avatar");
+            });
+        }
+
+        updateProfileApi(formData).then(response => {
+            console.log(response);
+            toast.success("Perfil actualizado");
+            setShowModal(false);
+        }).catch(() => {
+            toast.error("Error al actualizar el perfil");
+        }
+        )
+
     }
 
     return (
         <div className='edit-user-form'>
             <div className='banner' style={{ backgroundImage: `url('${bannerUrl}')` }} {...getRootBannerProps()}>
                 <input {...getInputBannerProps()} />
-                <Camera/>
+                <Camera />
             </div>
             <div className='avatar' style={{ backgroundImage: `url('${avatarUrl}')` }} {...getRootAvatarProps()}>
                 <input {...getInputAvatarProps()} />
-                <Camera/>
+                <Camera />
             </div>
             <Form onSubmit={onSubmit} >
                 <Form.Group>
