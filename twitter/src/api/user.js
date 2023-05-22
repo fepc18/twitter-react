@@ -31,7 +31,7 @@ export function updateProfileApi(data) {
     const url = `${API_HOST}/modifyprofile`;
 
     const params = {
-        method: "PUT",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${getTokenApi()}`,

@@ -45,15 +45,14 @@ export default function EditUserForm(props) {
         noKeyboard: true,
         onDrop: onDropAvatar
     })
-    const onChange = e => {
+   const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
+     
     }
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log(formData);
-        console.log(bannerFile);
-        console.log(avatarFile);
+     
         if (bannerFile) {
             uploadBannerApi(bannerFile).catch(() => {
                 toast.error("Error al subir el nuevo banner");
@@ -91,24 +90,24 @@ export default function EditUserForm(props) {
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control type="text" placeholder="Nombre" defaultValue={formData.name} onChange={onChange} />
+                            <Form.Control type="text" name="name" placeholder="Nombre" defaultValue={formData.name} onChange={onChange} />
                         </Col>
                         <Col>
-                            <Form.Control type="text" placeholder="Apellidos" defaultValue={formData.lastName} onChange={onChange} />
-                        </Col>
-                    </Row>
-                </Form.Group>
-                <Form.Group>
-                    <Row>
-                        <Col>
-                            <Form.Control as="textarea" row="3" placeholder="Agrega tu biografía" defaultValue={formData.biography} onChange={onChange} />
+                            <Form.Control type="text" name="lastName" placeholder="Apellidos" defaultValue={formData.lastName} onChange={onChange} />
                         </Col>
                     </Row>
                 </Form.Group>
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control type="text" placeholder="Sitio Web" defaultValue={formData.website} onChange={onChange} />
+                            <Form.Control as="textarea" name="biography" row="3" placeholder="Agrega tu biografía" defaultValue={formData.biography} onChange={onChange} />
+                        </Col>
+                    </Row>
+                </Form.Group>
+                <Form.Group>
+                    <Row>
+                        <Col>
+                            <Form.Control type="text" name="website" placeholder="Sitio Web" defaultValue={formData.website} onChange={onChange} />
                         </Col>
                     </Row>
                 </Form.Group>
@@ -118,6 +117,7 @@ export default function EditUserForm(props) {
                             <DatePicker
                                 placeholder="Fecha de nacimiento"
                                 locale={es}
+                                name="birthdate"
                                 selected={new Date(formData.birthdate)}
                                 onChange={value => setFormData({ ...formData, birthdate: value })}
 
@@ -129,7 +129,7 @@ export default function EditUserForm(props) {
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control type="text" placeholder="Ubicación" defaultValue={formData.location} />
+                            <Form.Control type="text" name="location" placeholder="Ubicación" defaultValue={formData.location} onChange={onChange}/>
                         </Col>
                     </Row>
                 </Form.Group>
