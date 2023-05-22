@@ -45,14 +45,14 @@ export default function EditUserForm(props) {
         noKeyboard: true,
         onDrop: onDropAvatar
     })
-   const onChange = e => {
+    const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
-     
+
     }
 
     const onSubmit = e => {
         e.preventDefault();
-     
+
         if (bannerFile) {
             uploadBannerApi(bannerFile).catch(() => {
                 toast.error("Error al subir el nuevo banner");
@@ -71,8 +71,12 @@ export default function EditUserForm(props) {
             setShowModal(false);
         }).catch(() => {
             toast.error("Error al actualizar el perfil");
-        }
-        )
+        }).finally
+            (() => {
+                window.location.reload();
+            }
+            );
+
 
     }
 
@@ -129,7 +133,7 @@ export default function EditUserForm(props) {
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control type="text" name="location" placeholder="Ubicación" defaultValue={formData.location} onChange={onChange}/>
+                            <Form.Control type="text" name="location" placeholder="Ubicación" defaultValue={formData.location} onChange={onChange} />
                         </Col>
                     </Row>
                 </Form.Group>
