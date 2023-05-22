@@ -10,39 +10,43 @@ import { updateProfileApi } from '../../../api/user';
 export default function EditUserForm(props) {
 
     const { user, setShowModal } = props;
-    const { name, lastName, biography, location, website } = user;
     const [formData, setFormData] = useState(initialValueForm(user));
+
+    const onChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
 
     const onSubmit = e => {
         e.preventDefault();
+        console.log(formData);
 
 
     }
 
     return (
         <div className='edit-user-form'>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit} >
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control type="text" placeholder="Nombre" defaultValue={formData.name} />
+                            <Form.Control type="text" placeholder="Nombre" defaultValue={formData.name} onChange={onChange}/>
                         </Col>
                         <Col>
-                            <Form.Control type="text" placeholder="Apellidos" defaultValue={formData.lastName} />
-                        </Col>
-                    </Row>
-                </Form.Group>
-                <Form.Group>
-                    <Row>
-                        <Col>
-                            <Form.Control as="textarea" row="3" placeholder="Agrega tu biografía" defaultValue={formData.biography} />
+                            <Form.Control type="text" placeholder="Apellidos" defaultValue={formData.lastName} onChange={onChange} />
                         </Col>
                     </Row>
                 </Form.Group>
                 <Form.Group>
                     <Row>
                         <Col>
-                            <Form.Control type="text" placeholder="Sitio Web" defaultValue={formData.website} />
+                            <Form.Control as="textarea" row="3" placeholder="Agrega tu biografía" defaultValue={formData.biography} onChange={onChange}/>
+                        </Col>
+                    </Row>
+                </Form.Group>
+                <Form.Group>
+                    <Row>
+                        <Col>
+                            <Form.Control type="text" placeholder="Sitio Web" defaultValue={formData.website} onChange={onChange}/>
                         </Col>
                     </Row>
                 </Form.Group>
@@ -53,7 +57,7 @@ export default function EditUserForm(props) {
                                 placeholder="Fecha de nacimiento"
                                 locale={es}
                                 selected={new Date(formData.birthdate)}
-                                onChange={date => console.log(date)}
+                                onChange={value => setFormData({ ...formData, birthdate: value })}
                                 
                             />
                         </Col>
@@ -75,11 +79,7 @@ export default function EditUserForm(props) {
                                 Actualizar
                             </Button>
                         </Col>
-                        <Col>
-                            <Button onClick={() => setShowModal(false)} variant="outline-secondary" type="submit" className="btn-submit">
-                                Cancelar
-                            </Button>
-                        </Col>
+                        
                     </Row>
                 </Form.Group>
             </Form>
