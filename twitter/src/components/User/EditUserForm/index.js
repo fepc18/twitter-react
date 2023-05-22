@@ -7,6 +7,7 @@ import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 
 import { API_HOST } from '../../../utils/constants';
+import { Camera } from '../../../utils/Icons';
 import { updateProfileApi } from '../../../api/user';
 
 
@@ -47,16 +48,17 @@ export default function EditUserForm(props) {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log(formData)
+        console.log(formData);
+        console.log(bannerFile);
     }
 
     return (
         <div className='edit-user-form'>
             <div className='banner' style={{ backgroundImage: `url('${bannerUrl}')` }} {...getRootBannerProps()}>
                 <input {...getInputBannerProps()} />
-                <p>Subir foto</p>
+                <Camera/>
             </div>
-            
+
             <Form onSubmit={onSubmit} >
                 <Form.Group>
                     <Row>
