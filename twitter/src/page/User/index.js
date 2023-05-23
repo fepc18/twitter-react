@@ -8,13 +8,22 @@ import { getUserApi } from '../../api/user';
 import BannerAvatar from '../../components/User/BannerAvatar';
 import { toast } from 'react-toastify';
 import InfoUser from '../../components/User/InfoUser';
+import ListTweets from '../../components/ListTweets';
+
+import { getUserTweetsApi } from '../../api/tweet';
+import { get } from 'lodash';
+
 
 
 export default function User(props) {
   const { setRefreshCheckLogin } = props
   const { id } = useParams(); //user id from url
   const [user, setUser] = useState(null);
+  const [loadingTweets, setLoadingTweets] = useState(false);
+  const [page, setPage] = useState(1);
+  const [tweets, setTweets] = useState(null);
   const loggedUser = useAuth(); //user logged
+
 
   useEffect(() => {
     getUserApi(id).then(response => {
@@ -29,6 +38,14 @@ export default function User(props) {
     })
   }, [id])
 
+  useEffect(() => { 
+    console.log(tweets);
+    getUserTweetsApi(id, 1).then(response => {
+      setTweets(response);
+    }).catch(() => {
+      setTweets([]);
+    })
+  }, [id])
 
 
 
@@ -40,10 +57,12 @@ export default function User(props) {
         </h2>
       </div>
       <BannerAvatar user={user} loggedUser={loggedUser} />
-      <div className="user__container">
-        <div className="user__container__info">
-          <InfoUser user={user} />
-        </div>
+
+      <InfoUser user={user} />
+      <div className="user__tweets">
+        <h3>Tweets</h3>
+        {tweets && <ListTweets tweets={tweets} />}
+        
       </div>
     </BasicLayout>
   )

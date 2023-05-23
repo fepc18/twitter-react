@@ -14,7 +14,7 @@ import useAuth from '../../hooks/useAuth'
 export default function LeftMenu(props) {
     const { setRefreshCheckLogin } = props;
     const user = useAuth();
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
 
     const logout = () => {
         logoutApi()
