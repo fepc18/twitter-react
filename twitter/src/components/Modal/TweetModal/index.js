@@ -3,7 +3,11 @@ import React, { useState } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap'
 import classNames from 'classnames';
 
+
 import { Close } from "../../../utils/Icons";
+import { addTweetApi } from '../../../api/tweet';
+import { toast } from 'react-toastify';
+
 
 export default function TweetModal(props) {
     const { show, setShow, children } = props;
@@ -13,7 +17,23 @@ export default function TweetModal(props) {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log('Enviando tweet');
+        if(message.length>MaxLength || message.length<1){
+            toast.warning("El tweet debe tener entre 1 y 280 caracteres");         
+            return;
+        }
+        if (message.length > 0 && message.length <= MaxLength) {
+            addTweetApi(message).then(response => {
+                if (response?.code >= 200 && response?.code < 300) {
+                    toast.success(response.message);
+                    setShow(false);
+                    window.location.reload();
+                }
+            }).catch(() => {
+                toast.error("Error al enviar el tweet");
+            })
+        }
+            
+
     }
 
     onchange = (e) => {
