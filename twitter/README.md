@@ -27,6 +27,7 @@ yarn add react-router-dom
     yarn add react-datepicker
 9. yarn add react-dropzone
 
+10. yarn add classnames
     ///formularios
 
     crear formulario con estilos
