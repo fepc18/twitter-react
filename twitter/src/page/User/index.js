@@ -73,7 +73,7 @@ export default function User(props) {
   return (
     <BasicLayout className="user" setRefreshCheckLogin={setRefreshCheckLogin} >
       <div className="user__title">
-        <h2> {user ? ` ${user?.name} ${user?.lastName}` : "El usuario no existe"}
+        <h2> {user ? ` ${user?.name} ${user?.lastname}` : "El usuario no existe"}
         </h2>
       </div>
       <BannerAvatar user={user} loggedUser={loggedUser} />

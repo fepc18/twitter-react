@@ -8,10 +8,12 @@ import "./InfoUser.scss"
 
 export default function InfoUser(props) {
     const { user } = props;
+    console.log(user)
     return (
+       
         <div className="info-user">
             <h2 className="name">
-                {user?.name} {user?.lastName}
+                {user?.name} {user?.lastname}
             </h2>
             <h3 className="email">{user?.email}</h3>
             {user?.biography && <div className="description">{user?.biography}</div>}

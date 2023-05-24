@@ -1,6 +1,6 @@
 import './ListUsers.scss'
-import { ButtonGroup, Button, Spinner } from 'react-bootstrap'
 import {map,isEmpty} from 'lodash'
+import User from './User'
 
 import React from 'react'
 
@@ -17,13 +17,12 @@ export default function ListUsers(props) {
     return (
        <ul className="list-users">
               {map(users,(user,index)=>(
-                    <li key={index}>
-                        <p>{user.name}</p>
-                        <p>{user.email}</p>
-                    </li>
+                  <li key={index}>
+                        <User user={user}/>
+                    </li>                    
                 ))}
          </ul>
-         
+
 
     )
 }
