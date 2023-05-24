@@ -53,3 +53,21 @@ export function unfollowUserApi(idUser) {
         return err;
     })
 }
+
+//Get users that we follow
+export function getFollowsApi(paramsUrl) {
+    const url = `${API_HOST}/listusers?${paramsUrl}`;
+    const params = {
+        headers: {
+            Authorization: `Bearer ${getTokenApi()}`
+        }
+    };
+    return fetch(url, params).then(response => {
+        console.log(url,params);
+        return response.json();
+    }).then(result => {
+        return result;
+    }).catch(err => {
+        return err;
+    })
+}
