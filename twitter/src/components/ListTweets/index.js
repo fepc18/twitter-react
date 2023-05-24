@@ -3,9 +3,11 @@ import "./ListTweets.scss"
 
 import React,{useState,useEffect} from "react";
 import { map } from "lodash";
-import { getUserAvatar } from "../../api/tweet";
-import moment from "moment";
 
+import { getUserApi } from "../../api/user";
+import moment from "moment";
+import AvatarNotFound from "../../assets/png/avatar-no-found.png";
+import { API_HOST } from "../../utils/constants";
 
 
 export default function ListTweets(props) {
@@ -33,23 +35,28 @@ export default function ListTweets(props) {
 function Tweet(props) {
     const { tweet } = props;
     const [avatarUrl, setAvatarUrl] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
-        if (tweet.avatar) {
-            getUserAvatar(tweet.avatar).then(response => {
-                setAvatarUrl(response);
-            })
-        } else {
-            setAvatarUrl(null);
-        }
+        
+        getUserApi(tweet.userId).then(response => {
+            setUserInfo(response);
+            
+            setAvatarUrl(
+                response?.avatar
+                    ? `${API_HOST}/getavatar?id=${response.id}`
+                    : AvatarNotFound
+            );
+        })
+
     }, [tweet])
 
     return (
         <div className="tweet">
-            <Image className="avatar" src={avatarUrl ? avatarUrl : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"} roundedCircle />
+            <Image className="avatar" src={avatarUrl ? avatarUrl : AvatarNotFound } roundedCircle />
             <div>
                 <div className="name">
-                    {tweet.name} {tweet.lastName}
+                    {userInfo?.name} {userInfo?.lastName}
                     <span>{moment(tweet.date).calendar()}</span>
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: tweet.message }} />
