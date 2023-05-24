@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Spinner } from 'bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import BasicLayout from '../../layout/BasicLayout'
@@ -38,7 +38,7 @@ export default function User(props) {
     })
   }, [id])
 
-  useEffect(() => { 
+  useEffect(() => {
     console.log(tweets);
     getUserTweetsApi(id, 1).then(response => {
       setTweets(response);
@@ -47,6 +47,26 @@ export default function User(props) {
     })
   }, [id])
 
+  const moreData = () => {
+    const pageTemp = page + 1;
+    setLoadingTweets(true);
+    getUserTweetsApi(id, pageTemp).then(response => {
+      if (!response) {     
+        setLoadingTweets(0);
+      }       
+       else {
+        setTweets([...tweets, ...response]);
+        setPage(pageTemp);       
+      }
+    })
+      .catch(() => {
+        toast.error("Error al cargar los tweets");
+      })
+      .finally(() => {
+        setLoadingTweets(false);
+      }
+      )
+  }
 
 
 
@@ -62,7 +82,21 @@ export default function User(props) {
       <div className="user__tweets">
         <h3>Tweets</h3>
         {tweets && <ListTweets tweets={tweets} />}
-        
+        <Button onClick={moreData} >
+          {!loadingTweets ? (
+            loadingTweets !== 0 && "Obtener mas tweets"
+          ) : (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )
+          }
+
+        </Button>
       </div>
     </BasicLayout>
   )

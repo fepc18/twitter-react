@@ -8,6 +8,7 @@ import { getUserApi } from "../../api/user";
 import moment from "moment";
 import AvatarNotFound from "../../assets/png/avatar-no-found.png";
 import { API_HOST } from "../../utils/constants";
+import {replaceURLWithHTMLLinks} from "../../utils/functions";
 
 
 export default function ListTweets(props) {
@@ -59,7 +60,8 @@ function Tweet(props) {
                     {userInfo?.name} {userInfo?.lastName}
                     <span>{moment(tweet.date).calendar()}</span>
                 </div>
-                <div dangerouslySetInnerHTML={{ __html: tweet.message }} />
+                <div dangerouslySetInnerHTML={{ __html: replaceURLWithHTMLLinks(tweet.message) }} />
+                
             </div>
         </div>
     )
