@@ -25,9 +25,14 @@ yarn add react-router-dom
 
 8. Calendar control
     yarn add react-datepicker
-9. yarn add react-dropzone
+9. control de subir archivos
+    yarn add react-dropzone
 
-10. yarn add classnames
+10. // Para classes dinamicas
+    yarn add classnames
+ 
+11. 
+    yarn add query-string
     ///formularios
 
     crear formulario con estilos

@@ -11,7 +11,7 @@ import InfoUser from '../../components/User/InfoUser';
 import ListTweets from '../../components/ListTweets';
 
 import { getUserTweetsApi } from '../../api/tweet';
-import { get } from 'lodash';
+
 
 
 
@@ -39,7 +39,7 @@ export default function User(props) {
   }, [id])
 
   useEffect(() => {
-    console.log(tweets);
+   
     getUserTweetsApi(id, 1).then(response => {
       setTweets(response);
     }).catch(() => {

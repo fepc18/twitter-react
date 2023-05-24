@@ -63,7 +63,7 @@ export function getFollowsApi(paramsUrl) {
         }
     };
     return fetch(url, params).then(response => {
-        console.log(url,params);
+    
         return response.json();
     }).then(result => {
         return result;

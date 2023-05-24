@@ -43,4 +43,14 @@
       }
     }
   }
+  &__loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    >div{
+      margin-bottom: 20px;
+    }
+  }
 }

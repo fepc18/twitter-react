@@ -67,7 +67,7 @@ export default function EditUserForm(props) {
         }
 
         await updateProfileApi(formData).then(response => {
-            console.log(response);
+          
             toast.success("Perfil actualizado");
             setShowModal(false);
         }).catch(() => {
