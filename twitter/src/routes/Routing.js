@@ -18,7 +18,6 @@ export default function Routing(props) {
                         <Route key={index} path={route.path} exact={route.exact} element={<route.page setRefreshCheckLogin={setRefreshCheckLogin}  />} />
                     ))
                 }
-
             </Routes>
         </Router>
     )
