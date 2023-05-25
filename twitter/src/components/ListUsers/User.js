@@ -20,6 +20,8 @@ export default function User(props) {
     }, [user])
 
 
+
+
     return (
         <Card as={Link} to={`/${user.id}`} className="list-users__user"  >
             <Image
@@ -30,7 +32,7 @@ export default function User(props) {
                 src={
                     userInfo?.avatar ? `${API_HOST}/getavatar?id=${user.id}` : AvatarNoFound
                 }
-                alt={`${user.nombre} ${user.apellidos}`}
+                alt={`${user.name} ${user.lastname}`}
             />
             <Card.Body>
                 <h5>

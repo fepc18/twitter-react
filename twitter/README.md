@@ -31,8 +31,12 @@ yarn add react-router-dom
 10. // Para classes dinamicas
     yarn add classnames
  
-11. 
-    yarn add query-string
+11.  yarn add query-string
+
+12. Para esperar un tiempo antes de recargar
+yarn add use-debounce
+
+
     ///formularios
 
     crear formulario con estilos
