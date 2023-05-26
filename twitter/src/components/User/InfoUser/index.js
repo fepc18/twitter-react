@@ -8,7 +8,7 @@ import "./InfoUser.scss"
 
 export default function InfoUser(props) {
     const { user } = props;
-    console.log(user)
+   
     return (
        
         <div className="info-user">

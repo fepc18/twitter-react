@@ -27,10 +27,10 @@ export default function LeftMenu(props) {
         <div className="left-menu">
             <img className="logo" src={LogoWhite} alt="Twitter" />
             <Link to="/"><FontAwesomeIcon icon={faHome} />Inicio</Link>
-            <Link to={`${user?._id}`}><FontAwesomeIcon icon={faUsers} />Usuarios</Link>
+            <Link to="/users"><FontAwesomeIcon icon={faUsers} />Usuarios</Link>
             <Link to="/hashtags"><FontAwesomeIcon icon={faHashtag} />Hashtags</Link>
             <Link to="/favorites"><FontAwesomeIcon icon={faStar} />Favoritos</Link>
-            <Link to="/profile"><FontAwesomeIcon icon={faUser} />Perfil</Link>
+            <Link to={`/${user?._id}`}><FontAwesomeIcon icon={faUser} />Perfil</Link>
             <Link to="/settings"><FontAwesomeIcon icon={faCog} />Ajustes</Link>
             <Link to="" onClick={logout}><FontAwesomeIcon icon={faPowerOff} />Cerrar sesión</Link>
 

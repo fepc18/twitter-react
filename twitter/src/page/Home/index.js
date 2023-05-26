@@ -5,6 +5,7 @@ import BasicLayout from '../../layout/BasicLayout'
 import { getTweetsFollowersApi } from '../../api/tweet'
 
 import ListTweets from '../../components/ListTweets/'
+import { Spinner,Button } from 'react-bootstrap'
 
 export default function Home(props) {
     const { setRefreshCheckLogin } = props;
@@ -14,9 +15,10 @@ export default function Home(props) {
 
     useEffect(() => {
         getTweetsFollowersApi(page).then(response => {
-           
+            setLoadingTweets(true);
             if (!tweets && response) {
                 setTweets(formatModel(response));
+                setLoadingTweets(false);
             } else {
                 if (!response) {
                     setLoadingTweets(0);
@@ -52,6 +54,20 @@ export default function Home(props) {
                 <h2>Inicio</h2>
             </div>
             {tweets && <ListTweets tweets={tweets} />}
+            <Button className="load-more" onClick={() => setPage(page + 1)}>
+                {!loadingTweets ? (
+                    loadingTweets !== 0 &&
+                    "Obtener mas tweets")
+                    : (
+                        <Spinner
+                            as="span"
+                            animation="grow"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />
+                    )}
+            </Button>
         </BasicLayout>
 
 
