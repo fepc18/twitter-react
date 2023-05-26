@@ -51,3 +51,21 @@ export function getUserAvatar(avatarName) {
         return err;
     })
 }
+
+//get tweet followers
+export function getTweetsFollowersApi(page = 1) {
+    const url = `${API_HOST}/readtweetsfollowers?page=${page}`;
+    const params = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getTokenApi()}`
+        }
+    };
+    return fetch(url, params).then(response => {
+        return response.json();
+    }).then(result => {
+        return result;
+    }).catch(err => {
+        return err;
+    })
+}
