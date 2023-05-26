@@ -50,3 +50,14 @@ yarn add use-debounce
     crear context
     pasar la funciona que cambia la pagina inicial hasta el componente que genera el evento de cambio.
     --- Cuando hay calendatios se debe asignar onchange por control
+
+
+Para github
+
+agregar   en package.json
+    
+    "homepage":URL GITHUB // EN LA PRIMERA LINEA
+
+
+  "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build"
