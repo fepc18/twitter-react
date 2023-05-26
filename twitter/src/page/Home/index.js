@@ -28,7 +28,7 @@ export default function Home(props) {
                     setLoadingTweets(false);
                 }
             }
-        }).catch(() => { });
+        }).catch(() => { }); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
     const formatModel = (tweets) => {
@@ -42,7 +42,7 @@ export default function Home(props) {
                 date: tweet.Tweet.date
             })
         });
-        console.log(tweetsTemp);
+      
         return tweetsTemp;
     }
 

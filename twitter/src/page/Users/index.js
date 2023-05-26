@@ -32,7 +32,7 @@ export default function Users(props) {
     //get users from api send type user and page
     useEffect(() => {
         getFollowsApi(queryString.stringify(params)).then(response => {
-            console.log(response);          
+                   
             if (params.page === 1) {             
                 if (isEmpty(response) || response.length === 0){                                 
                     setUsers([]);

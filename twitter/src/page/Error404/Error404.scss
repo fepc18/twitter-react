@@ -1,5 +1,29 @@
 @import '../../scss/index.scss';
 
 .error404{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img{
+        &:first-of-type{
+            width: 150px;
+            margin-bottom: 30px;
+        }
+        &:last-of-type{
+            width: 700px;
+            margin-bottom: 30px;
+        }
+    }
+    a{
+        margin-top: 30px;
+        color: $font-light;
+        font-size:30px;
+        text-decoration: none;
+        font-weight: bold;
 
+    }
+   
+    
 }
